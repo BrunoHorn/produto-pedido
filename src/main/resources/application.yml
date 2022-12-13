@@ -1,0 +1,18 @@
+spring:
+  mvc:
+     pathmatch:
+        matching-strategy : ant-path-matcher
+  web:
+    locale: pt_BR
+    locale-resolver: fixed
+  profiles:
+    active: local
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=teste-senior
+    username: postgres
+    password: postgres
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+
