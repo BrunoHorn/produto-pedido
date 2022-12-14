@@ -47,17 +47,18 @@ public class PedidoController {
 	
 	@Autowired
 	PedidoMapper pedidoMapper;
-	
-	
+		
 	@PostMapping("/abrir")
 	@ApiOperation(value="Cadastra novo Pedido")
     public ResponseEntity<PedidoDto> savePedido(@RequestBody @Valid PedidoInputDto pedidoInputDto){		
-        return ResponseEntity.status(HttpStatus.CREATED).body(pedidoService.save(null,pedidoInputDto));
+        
+		return ResponseEntity.status(HttpStatus.CREATED).body(pedidoService.save(null,pedidoInputDto));
     }
 
     @PutMapping("/{id}")
     @ApiOperation(value="Atualiza informações do pedido e adiciona/altera itens do pedido")
-    public ResponseEntity<PedidoDto> updatePedido(@PathVariable(value = "id")UUID id,@RequestBody @Valid PedidoInputDto pedidoInputDto) throws Exception{
+    public ResponseEntity<PedidoDto> updatePedido(@PathVariable(value = "id")UUID id,
+    		@RequestBody @Valid PedidoInputDto pedidoInputDto) throws Exception{
     	 
         return ResponseEntity.status(HttpStatus.OK).body(pedidoService.save(id,pedidoInputDto));
     }
@@ -65,13 +66,16 @@ public class PedidoController {
     @DeleteMapping("/item-pedido/{id}")
     @ApiOperation(value="Remover um item do pedido")
     public ResponseEntity<PedidoDto> updateRemoverItemPedido(@PathVariable(value = "id") UUID id) throws Exception {	 
+    	
     	itemPedidoService.excluir(id);
-        return  ResponseEntity.status(HttpStatus.NO_CONTENT).build(); 
+        
+    	return  ResponseEntity.status(HttpStatus.NO_CONTENT).build(); 
     }
     
     @PutMapping("/{id}/fechar")
     @ApiOperation(value="Pega o desconto e finaliza o pedido")
-    public ResponseEntity<PedidoFechadoOutDto> fecharPedido(@PathVariable(value = "id")UUID id,@RequestBody @Valid FecharPedidoInputDto fecharPedidoInputDto) throws Exception{
+    public ResponseEntity<PedidoFechadoOutDto> fecharPedido(@PathVariable(value = "id")UUID id,
+    		@RequestBody @Valid FecharPedidoInputDto fecharPedidoInputDto) throws Exception{
     	 
         return ResponseEntity.status(HttpStatus.OK).body(pedidoService.fecharPedido(id,fecharPedidoInputDto));
     }
@@ -89,11 +93,10 @@ public class PedidoController {
     @GetMapping("/{id}")
     @ApiOperation(value="Busca pedido cadastrado pelo ID")
     public ResponseEntity<PedidoDto> getPedidoid(@PathVariable(value = "id") UUID id) throws Exception {
+    	
     	Pedido pedido =pedidoService.findById(id);  
     	
         return ResponseEntity.status(HttpStatus.OK).body(pedidoMapper.toPedidoDto(pedido));
     }
-
-	
 
 }

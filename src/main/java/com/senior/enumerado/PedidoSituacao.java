@@ -4,4 +4,5 @@ public enum PedidoSituacao {
 
 	ABERTO ,
 	FECHADO;
+	
 }

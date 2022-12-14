@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.Column;
+
+import org.springframework.format.annotation.NumberFormat;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.senior.enumerado.PedidoSituacao;
 
@@ -30,7 +34,7 @@ public class PedidoFechadoOutDto {
 	private PedidoSituacao situacao;
 		 
 	private List<ItemPedidoDto> itemPedidoDto;
-		
-	private Double total;
+	
+	private Double valorTotal;
 		
 }

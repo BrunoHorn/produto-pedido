@@ -22,6 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Table(name ="itens_pedido")
 public class ItemPedido {
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;

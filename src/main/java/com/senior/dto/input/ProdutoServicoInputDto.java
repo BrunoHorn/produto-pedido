@@ -27,4 +27,5 @@ public class ProdutoServicoInputDto {
 	private TipoProdutoServico tipo;
 		
 	private Boolean status;
+	
 }

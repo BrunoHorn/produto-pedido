@@ -19,4 +19,5 @@ public class PedidoInputDto {
 	
 	@Valid
 	private List<ItemPedidoInputDto> itemPedidoInputDto;
+	
 }

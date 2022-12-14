@@ -25,8 +25,6 @@ public class SwaggerConfig {
                 .apiInfo(metaInfo());
     }
 
- 
-
 	private ApiInfo metaInfo() {
 
         ApiInfo apiInfo = new ApiInfo(

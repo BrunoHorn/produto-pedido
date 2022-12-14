@@ -50,16 +50,19 @@ public class ProdutoServicoController {
 	
     @GetMapping
     @ApiOperation(value="Busca lista de produtos e serviços cadastrados")
-    public ResponseEntity<Page<ProdutoServicoDto>> getListProdutoServico(@RequestParam(required = false, defaultValue = "true") Boolean status,@RequestParam(required = false)TipoProdutoServico tipo,
-    						         @PageableDefault(page = 0, size = 2, sort = "id", direction = Sort.Direction.DESC)Pageable pageable){      
-        Page<ProdutoServicoDto> listaProdutoServicoDto = produtoServicoService.buscaListaprodutoServico(status,tipo, pageable);
-        
-        return ResponseEntity.status(HttpStatus.OK).body(listaProdutoServicoDto);               
+    public ResponseEntity<Page<ProdutoServicoDto>> getListProdutoServico(@RequestParam(required = false, defaultValue = "true") Boolean status,    		
+    		@RequestParam(required = false)TipoProdutoServico tipo,
+    		@PageableDefault(page = 0, size = 2, sort = "id", direction = Sort.Direction.DESC)Pageable pageable){      
+
+    	Page<ProdutoServicoDto> listaProdutoServicoDto = produtoServicoService.buscaListaprodutoServico(status,tipo, pageable);
+
+    	return ResponseEntity.status(HttpStatus.OK).body(listaProdutoServicoDto);               
     }
     
     @GetMapping("/{id}")
     @ApiOperation(value="Busca produto ou serviço cadastrado pelo ID")
     public ResponseEntity<ProdutoServicoDto> getProdutoServicoid(@PathVariable(value = "id") UUID id) throws Exception {
+    	
     	ProdutoServicoDto produtoServicoDto =produtoServicoMapper.toProdutoServicoDto(produtoServicoService.findById(id));   	
         
     	return ResponseEntity.status(HttpStatus.OK).body(produtoServicoDto);
@@ -67,7 +70,9 @@ public class ProdutoServicoController {
     
     @PutMapping("/{id}")
     @ApiOperation(value="Atualiza Produto ou serviço cadastrado pelo ID")
-    public ResponseEntity<ProdutoServicoDto> updatProdutoServico(@PathVariable(value = "id")UUID id,@RequestBody @Valid ProdutoServicoInputDto produtoServicoInputDto) throws Exception{
+    public ResponseEntity<ProdutoServicoDto> updatProdutoServico(@PathVariable(value = "id")UUID id,
+    		@RequestBody @Valid ProdutoServicoInputDto produtoServicoInputDto) throws Exception{
+    	
     	ProdutoServicoDto produtoServicoDto =produtoServicoMapper.toProdutoServicoDto(produtoServicoService.findById(id));  
         
     	return ResponseEntity.status(HttpStatus.OK).body(produtoServicoService.save(produtoServicoInputDto, produtoServicoDto.getId()));
@@ -75,10 +80,10 @@ public class ProdutoServicoController {
 	
     @DeleteMapping("/{id}")
     public ResponseEntity<ProdutoServicoDto> deleta(@PathVariable(value = "id") UUID id) throws Exception{   			
+    	
     	produtoServicoService.excluir(id);
     	
     	return ResponseEntity.status(HttpStatus.NO_CONTENT).build();   		 		   		
     }
-	
-	
+		
 }

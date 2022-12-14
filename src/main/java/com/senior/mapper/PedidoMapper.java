@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import com.senior.dto.ItemPedidoDto;
 import com.senior.dto.PedidoDto;
 import com.senior.dto.PedidoFechadoOutDto;
-import com.senior.dto.input.PedidoInputDto;
 import com.senior.model.ItemPedido;
 import com.senior.model.Pedido;
 import com.senior.repository.ItemPedidoRepository;
@@ -21,13 +20,8 @@ public class PedidoMapper {
 	@Autowired
 	ItemPedidoRepository itemPedidoRepository;
 	
-	public Pedido toPedido(PedidoInputDto pedidoInputDto) {
-		var pedido = new Pedido();
-		 BeanUtils.copyProperties(pedidoInputDto, pedido); 
-		 return pedido;
-	}
-	
 	public PedidoDto toPedidoDto(Pedido pedido) {
+		
 		var pedidoDto = new PedidoDto();
 		pedidoDto.setId(pedido.getId());
 		pedidoDto.setDataPedido(pedido.getDataAbertura());
@@ -49,8 +43,9 @@ public class PedidoMapper {
 	}	
 	
 	public PedidoFechadoOutDto toPedidoFechadoOutDto (Pedido pedido,List<ItemPedidoDto> itemPedidoDtoList) {
+		
 		PedidoFechadoOutDto pedidoFechadoOutDto = new PedidoFechadoOutDto();
-		 BeanUtils.copyProperties(pedido, pedidoFechadoOutDto); 
+		BeanUtils.copyProperties(pedido, pedidoFechadoOutDto); 
 		pedidoFechadoOutDto.setItemPedidoDto(itemPedidoDtoList);
 	
 		return pedidoFechadoOutDto;

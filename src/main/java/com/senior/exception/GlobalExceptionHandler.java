@@ -21,63 +21,50 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@Autowired
 	private MessageSource messageSource;
 	
-	   @ExceptionHandler(EntidadeNaoEncontradaException.class)
-	    public ResponseEntity<ExceptionDto> EntidadeNaoEncontradaException(EntidadeNaoEncontradaException e){
+	@ExceptionHandler(EntidadeNaoEncontradaException.class)
+	public ResponseEntity<ExceptionDto> EntidadeNaoEncontradaException(EntidadeNaoEncontradaException e){
 
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-	            new ExceptionDto(HttpStatus.NOT_FOUND, e.getMessage())
-	        );
-	    }
-	   
-	   @ExceptionHandler(EntidadeEmUsoException.class)
-	    public ResponseEntity<ExceptionDto> EntidadeEmUsoException(EntidadeEmUsoException e){
-
-	        return ResponseEntity.status(HttpStatus.CONFLICT).body(
-	            new ExceptionDto(HttpStatus.CONFLICT, e.getMessage())
-	        );
-	    }
-	   
-	   @ExceptionHandler(NegocioException.class)
-	    public ResponseEntity<ExceptionDto> NegocioException(NegocioException e){
-
-	        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(
-	            new ExceptionDto(HttpStatus.UNPROCESSABLE_ENTITY, e.getMessage())
-	        );
-	    }
-	   
-	   
-	   @Override
-	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-			org.springframework.http.HttpHeaders headers, HttpStatus status, WebRequest request) {
-	
-		  List<String> listaErros =  ex.getAllErrors().stream()
-           .map(objectError -> {
-               String message = messageSource.getMessage(objectError, LocaleContextHolder.getLocale());
-               
-               String name = objectError.getObjectName();
-               
-               if (objectError instanceof FieldError) {
-                   name = ((FieldError) objectError).getField();                   
-               }
-             
-               return name + " " + message;
-           })
-           .collect(Collectors.toList());
-		  
-		  String retornoErros = "";
-		  for (var erro : listaErros) {
-			  if (retornoErros.equalsIgnoreCase("")) {
-				  retornoErros = erro;
-			  } else {
-				  retornoErros = retornoErros + ", " + erro;
-			  }
-		  }
-		   
-		   return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(
-		            new ExceptionDto(HttpStatus.UNPROCESSABLE_ENTITY, retornoErros)
-		        );   
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDto(HttpStatus.NOT_FOUND, e.getMessage()));
 	}
 	   
-	  
-		
+	@ExceptionHandler(EntidadeEmUsoException.class)
+	public ResponseEntity<ExceptionDto> EntidadeEmUsoException(EntidadeEmUsoException e){
+
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(new ExceptionDto(HttpStatus.CONFLICT, e.getMessage()));
+	}
+	   
+	@ExceptionHandler(NegocioException.class)
+	public ResponseEntity<ExceptionDto> NegocioException(NegocioException e){
+
+		return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new ExceptionDto(HttpStatus.UNPROCESSABLE_ENTITY, e.getMessage()));
+	}
+	   
+	@Override
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+			  org.springframework.http.HttpHeaders headers, HttpStatus status, WebRequest request) {
+	
+		List<String> listaErros =  ex.getAllErrors().stream()
+        .map(objectError -> {String message = messageSource.getMessage(objectError, LocaleContextHolder.getLocale());
+               
+        String name = objectError.getObjectName();
+               
+        if (objectError instanceof FieldError) {
+        	name = ((FieldError) objectError).getField();                   
+         }
+             
+        return name + " " + message;
+           }).collect(Collectors.toList());
+		  
+		String retornoErros = "";
+		for (var erro : listaErros) {
+			if (retornoErros.equalsIgnoreCase("")) {
+				retornoErros = erro;
+			} else {
+				retornoErros = retornoErros + ", " + erro;
+			}
+		}
+		   
+		return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new ExceptionDto(HttpStatus.UNPROCESSABLE_ENTITY, retornoErros));   
+	}
+			
 }
