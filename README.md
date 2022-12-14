@@ -63,13 +63,14 @@
       * Não é possivel adicionar um produto/serviço com status falso em um pedido;
       
     Pedido
-      * É possivel adicionar um novo produto/serviço em um pedido que já foi aberto pelo endpoint de /Put do pedido, 
+      * É possivel adicionar um novo produto/serviço em um pedido que já foi aberto pelo endpoint de /Put do pedido,
         a qualquer momento desde que esteja com status Aberto;
-      * Ao alterar um pedido, e ele já tiver o mesmo produto/serviço que o informado, as informações atuais do item do pedido adicionadas, 
-        sobrescreverão o item de pedido de mesmo ID do banco;
+      * Ao alterar um pedido, e ele já tiver o mesmo produto/serviço que o informado,
+        as informações atuais do item do pedido adicionadas, sobrescreverão o item de pedido de mesmo ID do banco;
       * Não será permitido que itens do pedido sejam adicionado com a quantidade 0;
       * Não será permitido fazer alterações em pedidos com situação Fechado;
-      * Pedido pode receber um percentual de desconto quando for fechado, e o mesmo será aplicado apenas em itens do tipo produto;
+      * Pedido pode receber um percentual de desconto quando for fechado, 
+        e o mesmo será aplicado apenas em itens do tipo produto;
   
     
 
