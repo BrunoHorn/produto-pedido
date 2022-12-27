@@ -61,7 +61,7 @@ public class ProdutoServicoController {
     
     @GetMapping("/{id}")
     @ApiOperation(value="Busca produto ou serviço cadastrado pelo ID")
-    public ResponseEntity<ProdutoServicoDto> getProdutoServicoid(@PathVariable(value = "id") UUID id) throws Exception {
+    public ResponseEntity<ProdutoServicoDto> getProdutoServicoid(@PathVariable(value = "id") UUID id){
     	
     	ProdutoServicoDto produtoServicoDto =produtoServicoMapper.toProdutoServicoDto(produtoServicoService.findById(id));   	
         
@@ -71,7 +71,7 @@ public class ProdutoServicoController {
     @PutMapping("/{id}")
     @ApiOperation(value="Atualiza Produto ou serviço cadastrado pelo ID")
     public ResponseEntity<ProdutoServicoDto> updatProdutoServico(@PathVariable(value = "id")UUID id,
-    		@RequestBody @Valid ProdutoServicoInputDto produtoServicoInputDto) throws Exception{
+    		@RequestBody @Valid ProdutoServicoInputDto produtoServicoInputDto) {
     	
     	ProdutoServicoDto produtoServicoDto =produtoServicoMapper.toProdutoServicoDto(produtoServicoService.findById(id));  
         
@@ -79,7 +79,7 @@ public class ProdutoServicoController {
     }
 	
     @DeleteMapping("/{id}")
-    public ResponseEntity<ProdutoServicoDto> deleta(@PathVariable(value = "id") UUID id) throws Exception{   			
+    public ResponseEntity<ProdutoServicoDto> deleta(@PathVariable(value = "id") UUID id) {   			
     	
     	produtoServicoService.excluir(id);
     	

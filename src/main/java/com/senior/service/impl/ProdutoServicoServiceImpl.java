@@ -32,6 +32,7 @@ public class ProdutoServicoServiceImpl implements ProdutoServicoService {
 	ProdutoServicoMapper produtoServicoMapper;
 	
 	@Transactional
+	@Override
 	public ProdutoServicoDto save(@Valid ProdutoServicoInputDto produtoServicoInputDto, UUID id) {		
 		var produtoServico = produtoServicoMapper.toProdutoServico(produtoServicoInputDto);
         if (Objects.nonNull(id))  {     	
@@ -42,7 +43,8 @@ public class ProdutoServicoServiceImpl implements ProdutoServicoService {
 		
 		return produtoServicoDto;
 	}
-
+	
+	@Override
 	public Page<ProdutoServicoDto> buscaListaprodutoServico(Boolean status,TipoProdutoServico tipo , Pageable pageable) {		
 		if (tipo == null) {
 			return produtoServicoMapper.toProdutoServicoPageDto(produtoServicoRepository.findByStatus(status, pageable));	
@@ -50,7 +52,8 @@ public class ProdutoServicoServiceImpl implements ProdutoServicoService {
 		
 		return produtoServicoMapper.toProdutoServicoPageDto(produtoServicoRepository.findByStatusAndTipo(status,tipo, pageable));		
 	}
-
+	
+	@Override
 	public ProdutoServico findById(UUID id)  {	
 		var produtoServico = produtoServicoRepository.findById(id);		
 			if(produtoServico.isEmpty()) {			
@@ -59,7 +62,8 @@ public class ProdutoServicoServiceImpl implements ProdutoServicoService {
 				
 		return produtoServico.get();
 	}
-
+	
+	@Override
 	public void excluir(UUID id) {
 		try { 	
 			ProdutoServico produtoServico = findById(id);			

@@ -57,6 +57,7 @@ public class PedidoServiceImpl implements PedidoService{
 	ItemPedidoRepository itemPedidoRepository;
 	
 	@Transactional
+	@Override
 	public PedidoDto save(@Valid UUID id,PedidoInputDto pedidoInputDto) {
 		Pedido pedido;
 
@@ -87,6 +88,7 @@ public class PedidoServiceImpl implements PedidoService{
     	return pedidoDto;
 	}
 	
+	@Override
 	public Page<PedidoDto> buscaListaPedido(PedidoSituacao situacao, Pageable pageable) {
 		if (situacao == null) {
 			situacao =PedidoSituacao.ABERTO  ; 		
@@ -96,7 +98,7 @@ public class PedidoServiceImpl implements PedidoService{
 					
 		return pedidoDto;
 	}
-
+	@Override
 	public Pedido findById(UUID id) {
 		var pedidoOptional = pedidoRepository.findById(id);		
 		if(pedidoOptional.isEmpty()) {			
@@ -104,7 +106,8 @@ public class PedidoServiceImpl implements PedidoService{
 		}		
 		return pedidoOptional.get();
 	}
-
+	
+	@Override
 	public PedidoFechadoOutDto fecharPedido(UUID id, @Valid FecharPedidoInputDto fecharPedidoInputDto) {		
 		var pedido = findById(id);	
 		if(pedido.getSituacao()==PedidoSituacao.FECHADO) {

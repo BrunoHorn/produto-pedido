@@ -15,7 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter 
-public class PedidoFechadoOutDto {
+public class PedidoFechadoOutDto {   
 
 	private UUID id;
 		

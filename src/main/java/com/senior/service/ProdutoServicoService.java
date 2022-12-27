@@ -20,6 +20,6 @@ public interface ProdutoServicoService {
 	
 	ProdutoServico findById(UUID id);
 	
-	 void excluir(UUID id);
+	void excluir(UUID id);
 
 }

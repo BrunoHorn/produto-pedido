@@ -58,7 +58,7 @@ public class PedidoController {
     @PutMapping("/{id}")
     @ApiOperation(value="Atualiza informações do pedido e adiciona/altera itens do pedido")
     public ResponseEntity<PedidoDto> updatePedido(@PathVariable(value = "id")UUID id,
-    		@RequestBody @Valid PedidoInputDto pedidoInputDto) throws Exception{
+    		@RequestBody @Valid PedidoInputDto pedidoInputDto){
     	 
         return ResponseEntity.status(HttpStatus.OK).body(pedidoService.save(id,pedidoInputDto));
     }
@@ -75,7 +75,7 @@ public class PedidoController {
     @PutMapping("/{id}/fechar")
     @ApiOperation(value="Pega o desconto e finaliza o pedido")
     public ResponseEntity<PedidoFechadoOutDto> fecharPedido(@PathVariable(value = "id")UUID id,
-    		@RequestBody @Valid FecharPedidoInputDto fecharPedidoInputDto) throws Exception{
+    		@RequestBody @Valid FecharPedidoInputDto fecharPedidoInputDto){
     	 
         return ResponseEntity.status(HttpStatus.OK).body(pedidoService.fecharPedido(id,fecharPedidoInputDto));
     }
@@ -92,7 +92,7 @@ public class PedidoController {
     
     @GetMapping("/{id}")
     @ApiOperation(value="Busca pedido cadastrado pelo ID")
-    public ResponseEntity<PedidoDto> getPedidoid(@PathVariable(value = "id") UUID id) throws Exception {
+    public ResponseEntity<PedidoDto> getPedidoid(@PathVariable(value = "id") UUID id) {
     	
     	Pedido pedido =pedidoService.findById(id);  
     	

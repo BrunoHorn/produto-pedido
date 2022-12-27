@@ -16,7 +16,7 @@ import com.senior.model.Pedido;
 import com.senior.model.ProdutoServico;
 import com.senior.repository.ItemPedidoRepository;
 import com.senior.service.ItemPedidoService;
-
+ 
 @Service
 public class ItemPedidoServiceImpl implements ItemPedidoService {
 
@@ -24,6 +24,7 @@ public class ItemPedidoServiceImpl implements ItemPedidoService {
 	ItemPedidoRepository itemPedidoRepository;
 
 	@Transactional
+	@Override
 	public ItemPedido save(Pedido pedido,ProdutoServico produtoServico, Integer quantidade, String observacao) {
 		ItemPedido itemPedido; 
 		itemPedido =itemPedidoRepository.findByProdutoServicoAndPedido(produtoServico, pedido) ;		
@@ -43,6 +44,7 @@ public class ItemPedidoServiceImpl implements ItemPedidoService {
 		return itemPedido;		
 	}
 	
+	@Override
 	public ItemPedido findById(UUID id)  {	
 		var itemPedido = itemPedidoRepository.findById(id);		
 		if(itemPedido.isEmpty()) {			
@@ -52,12 +54,14 @@ public class ItemPedidoServiceImpl implements ItemPedidoService {
 		return itemPedido.get();		
 	}
 		
+	@Override
 	public void excluir(UUID id) { 	
 		
 		ItemPedido itemPedido = findById(id);			
 		itemPedidoRepository.delete(itemPedido);		
     }
 	
+	@Override
 	public Double calcularTotal(List<ItemPedido> itemPedidoList,Double desconto) {
 		Double totalProduto = 0.0;
 		Double totalServico = 0.0;
