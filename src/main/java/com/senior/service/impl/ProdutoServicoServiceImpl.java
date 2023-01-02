@@ -14,9 +14,11 @@ import org.springframework.stereotype.Service;
 
 import com.senior.dto.ProdutoServicoDto;
 import com.senior.dto.input.ProdutoServicoInputDto;
+import com.senior.enumerado.PedidoSituacao;
 import com.senior.enumerado.TipoProdutoServico;
 import com.senior.exception.EntidadeEmUsoException;
 import com.senior.exception.EntidadeNaoEncontradaException;
+import com.senior.exception.NegocioException;
 import com.senior.mapper.ProdutoServicoMapper;
 import com.senior.model.ProdutoServico;
 import com.senior.repository.ProdutoServicoRepository;
@@ -34,6 +36,9 @@ public class ProdutoServicoServiceImpl implements ProdutoServicoService {
 	@Transactional
 	@Override
 	public ProdutoServicoDto save(@Valid ProdutoServicoInputDto produtoServicoInputDto, UUID id) {		
+		if (id == null){
+		validaImput(produtoServicoInputDto);
+		}
 		var produtoServico = produtoServicoMapper.toProdutoServico(produtoServicoInputDto);
         if (Objects.nonNull(id))  {     	
         	produtoServico.setId(id);
@@ -72,6 +77,12 @@ public class ProdutoServicoServiceImpl implements ProdutoServicoService {
 		throw new EntidadeEmUsoException("Produto ou Servico está em uso , só pode ser desativado");
 		}
     }
+	
+	private void validaImput (ProdutoServicoInputDto produtoServicoInputDto) {
+		if((produtoServicoInputDto.getTipo() == null)) {
+			throw new NegocioException("Tipo não pode estar vazio. Deve ser um PRODUTO ou SERVICO");
+		}
+	}
 	
 }
 
